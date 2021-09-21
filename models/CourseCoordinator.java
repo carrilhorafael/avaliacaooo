@@ -17,14 +17,14 @@ public class CourseCoordinator extends User {
 
     public static CourseCoordinator create(String name, String cpf, String email, String password, String registration, String birthdate, String state, String nationality){
         CourseCoordinator coordinator = new CourseCoordinator();
-        coordinator.setName(name);
+        AvaliacaoOO informations = new AvaliacaoOO(name, registration);
         coordinator.setCpf(cpf);
         coordinator.setEmail(email);
         coordinator.setPassword(password);
-        coordinator.setRegistration(registration);
         coordinator.setBirthdate(birthdate);
         coordinator.setState(state);
         coordinator.setNationality(nationality);
+        coordinator.setInformations(informations);
         return coordinator;
     }
 

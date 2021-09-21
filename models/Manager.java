@@ -14,14 +14,15 @@ public class Manager extends User {
 
     public static Manager create(String name, String cpf, String email, String password, String registration, String birthdate, String state, String nationality){
         Manager manager = new Manager();
-        manager.setName(name);
+        AvaliacaoOO informations = new AvaliacaoOO(name, registration);
         manager.setCpf(cpf);
         manager.setEmail(email);
         manager.setPassword(password);
-        manager.setRegistration(registration);
         manager.setBirthdate(birthdate);
         manager.setState(state);
         manager.setNationality(nationality);
+        manager.setInformations(informations);
+
         return manager;
     }
     public void delete(){

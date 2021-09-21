@@ -17,15 +17,15 @@ public class Student extends User{
 
     public static Student create(String name, String cpf, String email, String password, String registration, String birthdate, String state, String nationality, int course_id){
         Student student = new Student();
-        student.setName(name);
+        AvaliacaoOO informations = new AvaliacaoOO(name, registration);
         student.setCpf(cpf);
         student.setEmail(email);
         student.setPassword(password);
-        student.setRegistration(registration);
         student.setBirthdate(birthdate);
         student.setState(state);
         student.setNationality(nationality);
         student.setCourse(course_id);
+        student.setInformations(informations);
         return student;
     }
 

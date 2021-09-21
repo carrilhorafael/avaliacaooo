@@ -19,15 +19,15 @@ public class Teacher extends User {
 
     public static Teacher create(String name, String cpf, String email, String password, String registration, String birthdate, String state, String nationality, int department_id){
         Teacher teacher = new Teacher();
-        teacher.setName(name);
+        AvaliacaoOO informations = new AvaliacaoOO(name, registration);
         teacher.setCpf(cpf);
         teacher.setEmail(email);
         teacher.setPassword(password);
-        teacher.setRegistration(registration);
         teacher.setBirthdate(birthdate);
         teacher.setState(state);
         teacher.setNationality(nationality);
         teacher.setDepartment(department_id);
+        teacher.setInformations(informations);
         return teacher;
     }
 

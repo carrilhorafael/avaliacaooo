@@ -3,9 +3,12 @@ package models.abstracts;
 import java.util.ArrayList;
 
 import activerecord.ActiveRecord;
+import models.AvaliacaoOO;
+
 
 public abstract class User {
-    private String name, cpf, email, password, registration, state, birthdate, nationality;
+    private AvaliacaoOO informations;
+    private String cpf, email, password, state, birthdate, nationality;
     private int id;
     private ArrayList<String> errors = new ArrayList<>();
     private static int next_user_id = Integer.parseInt(ActiveRecord.last("ids").split(" \\| ")[1]);
@@ -13,19 +16,19 @@ public abstract class User {
     public User(){}
 
     public User(String id, String name, String cpf, String email, String password, String registration, String birthdate, String state, String nationality){
-        this.name = name;
+        AvaliacaoOO informations = new AvaliacaoOO(name, registration);
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-        this.registration = registration;
         this.state = state;
         this.birthdate = birthdate;
         this.nationality = nationality;
         this.id = Integer.parseInt(id);
+        this.informations = informations;
     }
 
     public String stringify(){
-        return this.id + " | " + this.name + " | " + this.cpf + " | " + this.email + " | " + this.password + " | " + this.registration + " | " + this.birthdate + " | " + this.state + " | " + this.nationality + " | " + this.getClass().toString().split("\\.")[1];
+        return this.id + " | " + this.informations.getName() + " | " + this.cpf + " | " + this.email + " | " + this.password + " | " + this.informations.getRegistration() + " | " + this.birthdate + " | " + this.state + " | " + this.nationality + " | " + this.getClass().toString().split("\\.")[1];
     }
 
     public boolean save(){
@@ -52,13 +55,13 @@ public abstract class User {
         return email;
     }
     public String getName() {
-        return name;
+        return informations.getName();
     }
     public String getPassword() {
         return password;
     }
     public String getRegistration() {
-        return registration;
+        return informations.getRegistration();
     }
     public String getBirthdate() {
         return birthdate;
@@ -74,14 +77,7 @@ public abstract class User {
     }
 
     // validators e setters
-    public boolean validateName(String value){
-        boolean response = true;
-        if (value.isBlank()){
-            this.errors.add("A data de nascimento não pode ficar em branco");
-            response = false;
-        }
-        return response;
-    }
+    
     public boolean validateCpf(String value){
         boolean response = true;
         if (value.isBlank()){
@@ -134,19 +130,7 @@ public abstract class User {
         }
         return response;
     }
-    public boolean validateRegistration(String value){
-        boolean response = true;
-        if (value.isBlank()){
-            this.errors.add("A matricula não pode ficar em branco");
-            response = false;
-        }else {
-            if(!value.matches("[0-9]{3}.[0-9]{3}.[0-9]{3}")){
-                this.errors.add("Formato errado de matricula. (Utilize XXX.XXX.XXX)");
-                response = false;
-            }
-        }
-        return response;
-    }
+    
     public boolean validateState(String value){
         boolean response = true;
         if (value.isBlank()){
@@ -164,17 +148,14 @@ public abstract class User {
         return response;
     }
 
-    public void setName(String name){
-        if(validateName(name)) this.name = name;
-    }
+    public void setInformations(AvaliacaoOO informations) {
+        this.informations = informations;
+    }    
     public void setCpf(String cpf){
         if(validateCpf(cpf)) this.cpf = cpf;
     }
     public void setEmail(String email){
         if(validateEmail(email)) this.email = email;
-    }
-    public void setRegistration(String registration){
-        if(validateRegistration(registration)) this.registration = registration;
     }
     public void setPassword(String password){
         if(validatePassword(password)) this.password = password;
